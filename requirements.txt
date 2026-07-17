@@ -1,0 +1,9 @@
+backports.zoneinfo==0.2.1
+numpy==1.24.4
+pandas==2.0.3
+psycopg==3.2.13
+python-dateutil==2.9.0.post0
+pytz==2026.2
+six==1.17.0
+typing-extensions==4.13.2
+tzdata==2026.3
