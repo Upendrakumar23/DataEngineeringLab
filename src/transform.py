@@ -1,29 +1,22 @@
 import pandas as pd
+from logger import get_logger
+
+logger = get_logger()
 
 
-def transform(df: pd.DataFrame) -> pd.DataFrame:
+def transform_data(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Clean and transform employee data.
+    Apply business transformations.
     """
+
+    logger.info("Starting data transformation")
 
     # Remove leading/trailing spaces
     df["name"] = df["name"].str.strip()
-    df["department"] = df["department"].str.strip()
 
-    # Standardize names
-    df["name"] = df["name"].str.title()
+    # Department uppercase
+    df["department"] = df["department"].str.upper()
 
-    # Standardize department names
-    df["department"] = df["department"].str.strip().str.upper()
-
-    # Remove duplicate rows
-    df = df.drop_duplicates()
-
-    # Remove rows with missing values
-    df = df.dropna()
-
-    print("\nData After Transformation")
-    print("-" * 40)
-    print(df.head())
+    logger.info("Transformation completed")
 
     return df

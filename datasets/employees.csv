@@ -1,6 +1,6 @@
-name,department,salary
-Alice,IT,65000
-Bob,HR,50000
-Charlie,Finance,70000
-David,IT,68000
-Eva,Sales,55000
+employee_code,name,department,salary
+EMP001,Alice,IT,65000
+EMP002,Bob,HR,50000
+EMP003,Charlie,Finance,70000
+EMP004,David,IT,68000
+EMP005,Eva,Sales,55000
