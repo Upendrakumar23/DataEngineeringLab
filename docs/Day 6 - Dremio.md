@@ -1,4 +1,4 @@
-# Data Engineering Lab - Day 7
+# Data Engineering Lab - Day 6
 ## Topic: Dockerizing Dremio OSS
 
 **Date:** 22 July 2026
@@ -312,14 +312,14 @@ docker volume ls
 
 # Status
 
-| Component | Status |
-|-----------|--------|
-| Docker | ✅ |
-| PostgreSQL | ✅ |
-| Python ETL | ✅ |
-| Dremio OSS | ✅ |
-| Admin User | ✅ |
-| Docker Named Volume | ✅ |
+| Component           | Status |
+| ------------------- | ------ |
+| Docker              | ✅      |
+| PostgreSQL          | ✅      |
+| Python ETL          | ✅      |
+| Dremio OSS          | ✅      |
+| Admin User          | ✅      |
+| Docker Named Volume | ✅      |
 
 ---
 
