@@ -1,7 +1,17 @@
-# test_extract.py
+"""
+Test CSV extraction.
+"""
 
-from extract import extract_csv
+from src.config import DATASET_DIR
+from src.extract import extract_csv
 
-df = extract_csv("datasets/employees.csv")
 
-print(df.head())
+def test_extract():
+    df = extract_csv(DATASET_DIR / "employees.csv")
+
+    print("✅ CSV extracted successfully.\n")
+    print(df.head())
+
+
+if __name__ == "__main__":
+    test_extract()

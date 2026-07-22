@@ -1,5 +1,10 @@
+"""
+Extract data from source files.
+"""
+
 import pandas as pd
-from logger import get_logger
+
+from src.logger import get_logger
 
 logger = get_logger()
 
@@ -9,15 +14,26 @@ def extract_csv(file_path: str) -> pd.DataFrame:
     Extract data from a CSV file.
 
     Args:
-        file_path: Path to CSV file
+        file_path (str): Path to the CSV file.
 
     Returns:
-        Pandas DataFrame
+        pd.DataFrame: Extracted data.
+
+    Raises:
+        Exception: If the CSV cannot be read.
     """
+
     logger.info(f"Reading CSV file: {file_path}")
 
-    df = pd.read_csv(file_path)
+    try:
+        df = pd.read_csv(file_path)
 
-    logger.info(f"Successfully loaded {len(df)} records")
+        logger.info(
+            f"CSV loaded successfully. Records found: {len(df)}"
+        )
 
-    return df
+        return df
+
+    except Exception as e:
+        logger.exception(f"Failed to read CSV file: {file_path}")
+        raise

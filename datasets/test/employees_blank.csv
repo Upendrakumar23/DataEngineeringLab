@@ -1,0 +1,5 @@
+employee_code,name,department,salary
+EMP001,Alice,IT,65000
+EMP002, ,HR,50000
+,Charlie,Finance,70000
+EMP004,David,   ,68000

@@ -1,0 +1,25 @@
+services:
+  dremio:
+    image: dremio/dremio-oss:latest
+    container_name: ${DREMIO_CONTAINER}
+
+    ports:
+      - "${DREMIO_WEB_PORT}:9047"
+      - "${DREMIO_CLIENT_PORT}:31010"
+      - "${DREMIO_COORDINATOR_PORT}:45678"
+      - "${DREMIO_FLIGHT_PORT}:32010"
+
+    volumes:
+      - dremio-data:/opt/dremio/data
+
+    restart: unless-stopped
+
+    networks:
+      - de-network
+
+volumes:
+  dremio-data:
+
+networks:
+  de-network:
+    external: true

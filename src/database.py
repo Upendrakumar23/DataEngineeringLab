@@ -1,14 +1,16 @@
-import os
-from pathlib import Path
+"""
+Database connection utilities.
+"""
 
 import psycopg
-from dotenv import load_dotenv
 
-# Project root directory
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-# Load environment variables
-load_dotenv(BASE_DIR / ".env")
+from src.config import (
+    DB_HOST,
+    DB_PORT,
+    DB_NAME,
+    DB_USER,
+    DB_PASSWORD,
+)
 
 
 def get_connection():
@@ -17,9 +19,9 @@ def get_connection():
     """
 
     return psycopg.connect(
-        host=os.getenv("DB_HOST"),
-        port=os.getenv("DB_PORT"),
-        dbname=os.getenv("DB_NAME"),
-        user=os.getenv("DB_USER"),
-        password=os.getenv("DB_PASSWORD"),
+        host=DB_HOST,
+        port=DB_PORT,
+        dbname=DB_NAME,
+        user=DB_USER,
+        password=DB_PASSWORD,
     )

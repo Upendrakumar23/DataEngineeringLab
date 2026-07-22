@@ -19,5 +19,12 @@ services:
 
     restart: unless-stopped
 
+    networks:
+      - de-network
+
 volumes:
   postgres_data:
+
+networks:
+  de-network:
+    external: true
