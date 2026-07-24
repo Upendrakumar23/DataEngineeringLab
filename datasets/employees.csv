@@ -1,6 +1,13 @@
 employee_code,name,department,salary
 EMP001,Alice,IT,65000
 EMP002,Bob,HR,50000
-EMP003,Charlie,Finance,70000
-EMP004,David,IT,68000
-EMP005,Eva,Sales,55000
+EMP003,Charlie,Finance,110000
+EMP004,David,IT,98000
+EMP005,Eva,IT,55000
+EMP006,Frank,HR,52000
+EMP007,Grace,Finance,72000
+EMP008,Hannah,IT,86000
+EMP009,Ian,Sales,58000
+EMP010,Jack,HR,51000
+EMP011,Karen,Finance,75000
+EMP012,Liam,IT,80000

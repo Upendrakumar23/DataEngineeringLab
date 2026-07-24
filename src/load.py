@@ -28,29 +28,43 @@ def load_data(df) -> None:
         cursor = conn.cursor()
 
         insert_query = """
-            INSERT INTO employees (
-                employee_code,
-                name,
-                department,
-                salary
+        INSERT INTO employees (
+            employee_code,
+            name,
+            department,
+            salary
             )
-            VALUES (%s, %s, %s, %s)
+        VALUES (%s, %s, %s, %s)
+
+        ON CONFLICT (employee_code)
+        DO UPDATE SET
+        name = EXCLUDED.name,
+        department = EXCLUDED.department,
+        salary = EXCLUDED.salary;
         """
+
+        data = [
+    (
+        row["employee_code"],
+        row["name"],
+        row["department"],
+        row["salary"],
+    )
+    for _, row in df.iterrows()
+]
+
+        batch_size = 1000
 
         inserted_rows = 0
 
-        for _, row in df.iterrows():
-            cursor.execute(
-                insert_query,
-                (
-                    row["employee_code"],
-                    row["name"],
-                    row["department"],
-                    row["salary"],
-                ),
-            )
+        for i in range(0, len(data), batch_size):
+            batch = data[i:i + batch_size]
 
-            inserted_rows += 1
+        cursor.executemany(insert_query, batch)
+
+        inserted_rows += len(batch)
+
+        inserted_rows = len(data)
 
         conn.commit()
 
