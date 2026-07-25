@@ -12,7 +12,7 @@ def test_validator():
 
     df = extract_csv(file_path)
 
-    validate_data(file_path, df)
+    validate_data(df)
 
     print("✅ All validations passed.")
 

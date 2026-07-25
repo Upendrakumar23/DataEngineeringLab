@@ -1,108 +1,163 @@
-# Data Engineering Learning Roadmap
-## Mentor Plan (2026)
+# 🚀 Data Engineering Learning Roadmap
+## Mentor Plan (2026–2027)
 
-## Goal
+---
 
-Become an industry-ready Data Engineer capable of clearing interviews for:
+# 🎯 Goal
+
+Become an industry-ready **Modern Data Engineer** capable of designing, developing, testing, and deploying production-grade data pipelines.
+
+Target Roles
+
+- Senior Data Engineer
+- PySpark Data Engineer
+- AWS Data Engineer
+- Cloud Data Engineer
+- Analytics Engineer
+- Big Data Engineer
+
+Target Companies
 
 - Product Companies
 - MNCs
-- Remote Jobs
+- Remote Companies
 - Germany / Netherlands Opportunities
 
-Target Stack
+---
+
+# 🛠 Target Technology Stack
+
+## Programming
 
 - Python
 - SQL
+- Linux
+- Bash
+
+## Databases
+
 - PostgreSQL
+- Snowflake (Basics)
+
+## Data Processing
+
+- Pandas
+- PySpark
+
+## Data Integration
+
+- Informatica → PySpark Migration
+- ETL Design
+- ELT Design
+
+## Query & Semantic Layer
+
+- Dremio
+- Amazon Athena
+
+## Workflow Orchestration
+
+- Apache Airflow
+
+## Data Transformation
+
+- dbt
+
+## Cloud
+
+- AWS S3
+- AWS Glue
+- AWS Athena
+- AWS EMR
+- AWS Redshift
+- AWS Lambda
+- IAM
+
+## Data Lakehouse
+
+- Parquet
+- Delta Lake
+- Apache Iceberg
+
+## Streaming
+
+- Apache Kafka
+
+## DevOps
+
 - Docker
 - Git
-- Linux
-- PySpark
-- Airflow
-- dbt
-- AWS
-- Data Warehouse
-- Data Lake
+- GitHub
+- GitHub Actions
 - CI/CD
 
 ---
 
-# Phase 1 – Foundation (Week 1-2)
+# 📅 Phase 1 – Foundation & Professional ETL
 
-Objective
+## Objective
 
-Understand how data engineering projects are structured.
+Build a production-ready ETL framework using Python.
 
 Topics
 
 - Linux
 - WSL
-- Docker
 - Git
 - GitHub
-- Python
+- Docker
 - PostgreSQL
 - SQL
-- ETL Basics
-- Environment Variables
+- Python
+- ETL Fundamentals
+- Modular Design
 - Logging
 - Configuration
-- Error Handling
+- Exception Handling
+- Data Validation
+- Incremental Loading
+- UPSERT
+- Transaction Management
+- Unit Testing
+- Integration Testing
+- Code Refactoring
+- Code Quality
 
 Project
 
-Employee ETL Pipeline
+✅ Production-ready Employee ETL Pipeline
+
+Deliverables
+
+- Production-quality GitHub repository
+- Automated tests
+- Documentation
+- CI/CD
 
 Status
 
-✅ In Progress
+✅ Completed
 
 ---
 
-# Phase 2 – Professional ETL (Week 2)
+# 📅 Phase 2 – Advanced SQL
 
 Topics
 
-- Logging
-- Config Module
-- Incremental Loading
-- Upsert
-- Batch Loading
-- Data Validation
-- Modular Design
-- Exception Handling
-- Unit Testing Basics
-
-Project
-
-Production Ready ETL Pipeline
-
-Deliverable
-
-GitHub Project
-
----
-
-# Phase 3 – Advanced SQL (Week 3)
-
-Topics
-
+- Complex Joins
 - Window Functions
-- CTE
 - Recursive CTE
-- Ranking
-- Joins
-- Performance
-- Indexes
-- Execution Plans
-- Partitioning
+- Ranking Functions
 - Views
 - Materialized Views
+- Partitioning
+- Indexing
+- Query Optimization
+- Execution Plans
 
 Project
 
-Employee Analytics
+Employee Analytics Platform
 
 Interview Level
 
@@ -110,62 +165,25 @@ Interview Level
 
 ---
 
-# Phase 4 – Advanced Python (Week 4)
+# 📅 Phase 3 – Advanced Python
 
 Topics
 
 - OOP
-- Classes
+- SOLID Principles
+- Design Patterns
 - Packages
 - Decorators
 - Context Managers
 - Generators
 - Iterators
-- Lambda
 - Type Hints
-- Virtual Environment
 - Packaging
+- Virtual Environments
 
 Project
 
 Reusable ETL Framework
-
----
-
-# Phase 5 – PySpark (Week 5-6)
-
-Objective
-
-Move from Pandas to Distributed Processing.
-
-Topics
-
-- Spark Architecture
-- Driver
-- Executor
-- Cluster Manager
-- DataFrame API
-- Transformations
-- Actions
-- Lazy Evaluation
-- DAG
-- Partitioning
-- Caching
-- Broadcast Join
-- Window Functions
-- Spark SQL
-- UDF
-- Performance Tuning
-
-Projects
-
-CSV → Spark → PostgreSQL
-
-JSON → Spark
-
-Parquet → Spark
-
-Large Dataset Processing
 
 Interview Level
 
@@ -173,7 +191,85 @@ Interview Level
 
 ---
 
-# Phase 6 – Data Lake (Week 7)
+# 📅 Phase 4 – PySpark for Data Engineering
+
+Objective
+
+Transition from Pandas to distributed data processing.
+
+Topics
+
+- Spark Architecture
+- Driver & Executors
+- Cluster Manager
+- SparkSession
+- DataFrame API
+- Spark SQL
+- Transformations
+- Actions
+- Lazy Evaluation
+- DAG
+- Partitioning
+- Broadcast Join
+- Window Functions
+- UDFs
+- Performance Tuning
+- Memory Optimization
+
+Projects
+
+- CSV → PySpark → PostgreSQL
+- JSON Processing
+- Parquet Processing
+- Large Dataset Processing
+
+Industry Project
+
+Convert existing Python ETL pipeline into PySpark.
+
+Interview Level
+
+★★★★★
+
+---
+
+# 📅 Phase 5 – Informatica to PySpark Migration
+
+Objective
+
+Convert real Informatica mappings and workflows into PySpark code.
+
+Topics
+
+- Source Qualifier
+- Expression Transformation
+- Lookup Transformation
+- Joiner
+- Router
+- Filter
+- Aggregator
+- Update Strategy
+- Sequence Generator
+- Workflow Logic
+- Parameter Files
+
+Projects
+
+- Employee Workflow Migration
+- Sales Workflow Migration
+- Finance Workflow Migration
+
+Goal
+
+Convert 20+ Informatica workflows into PySpark.
+
+Interview Level
+
+★★★★★
+
+---
+
+# 📅 Phase 6 – Modern Data Lakehouse
 
 Topics
 
@@ -182,91 +278,147 @@ Topics
 - Avro
 - Delta Lake
 - Apache Iceberg
-- Hudi
+- Partition Strategy
+- File Optimization
+- Data Versioning
 
 Project
 
-Mini Data Lake
+Modern Data Lake
 
 ---
 
-# Phase 7 – Airflow (Week 8)
+# 📅 Phase 7 – Dremio
 
 Topics
 
-- DAG
-- Operators
-- Scheduling
-- Sensors
-- Variables
-- Connections
-- Retry
-- XCom
-- Monitoring
+- Data Sources
+- Reflections
+- Semantic Layer
+- Virtual Datasets
+- Physical Datasets
+- Query Optimization
+- Data Catalog
 
 Project
 
-Schedule ETL Automatically
+Lakehouse Analytics Platform
 
 ---
 
-# Phase 8 – dbt (Week 9)
+# 📅 Phase 8 – dbt
 
 Topics
 
-- Models
 - Sources
+- Models
 - Seeds
 - Snapshots
 - Incremental Models
-- Macros
 - Tests
 - Documentation
+- Macros
 
 Project
 
-Modern Analytics Pipeline
+Analytics Engineering Pipeline
 
 ---
 
-# Phase 9 – Cloud (Week 10-12)
-
-AWS
-
-- S3
-- IAM
-- Glue
-- Athena
-- Redshift
-- EMR
-- Lambda
-
-GCP (Overview)
-
-- Cloud Storage
-- BigQuery
-- Dataproc
-
-Project
-
-Cloud ETL Pipeline
-
----
-
-# Phase 10 – Production Engineering
+# 📅 Phase 9 – Apache Airflow
 
 Topics
 
-- Logging
+- DAGs
+- Scheduling
+- Operators
+- Sensors
+- Variables
+- Connections
+- XCom
+- Retry Logic
 - Monitoring
-- Alerting
-- Testing
-- CI/CD
-- GitHub Actions
+
+Project
+
+Production Workflow Orchestration
+
+---
+
+# 📅 Phase 10 – AWS Data Engineering
+
+Topics
+
+## Storage
+
+- Amazon S3
+
+## ETL
+
+- AWS Glue
+
+## Analytics
+
+- Amazon Athena
+
+## Processing
+
+- EMR
+
+## Warehouse
+
+- Amazon Redshift
+
+## Compute
+
+- Lambda
+
+## Security
+
+- IAM
+
+Project
+
+Cloud Data Engineering Platform
+
+Interview Level
+
+★★★★★
+
+---
+
+# 📅 Phase 11 – Streaming
+
+Topics
+
+- Kafka
+- Producers
+- Consumers
+- Topics
+- Partitions
+- Offsets
+- Streaming Concepts
+
+Project
+
+Real-time Data Pipeline
+
+---
+
+# 📅 Phase 12 – Production Engineering
+
+Topics
+
 - Docker Compose
 - Multi-stage Docker
-- Secrets
-- Config Management
+- GitHub Actions
+- CI/CD
+- Testing Strategy
+- Monitoring
+- Alerting
+- Secrets Management
+- Configuration Management
+- Logging Best Practices
 
 Project
 
@@ -274,192 +426,122 @@ Production Data Platform
 
 ---
 
-# Phase 11 – Resume Projects
+# 📅 Phase 13 – Resume Projects
 
-Project 1
-
-Employee ETL
-
-Project 2
-
-Sales Analytics
-
-Project 3
-
-Retail Data Lake
-
-Project 4
-
-Streaming Pipeline
-
-Project 5
-
-Cloud ETL
+1. Production ETL Framework
+2. PySpark Data Pipeline
+3. Informatica → PySpark Migration
+4. Modern Data Lakehouse
+5. Airflow Orchestration
+6. AWS Data Engineering Pipeline
+7. Kafka Streaming Pipeline
 
 ---
 
-# Phase 12 – Interview Preparation
+# 📅 Phase 14 – Interview Preparation
 
-Python
+Python ⭐⭐⭐⭐⭐
 
-★★★★★
+SQL ⭐⭐⭐⭐⭐
 
-SQL
+PySpark ⭐⭐⭐⭐⭐
 
-★★★★★
+Airflow ⭐⭐⭐⭐⭐
 
-PySpark
+AWS ⭐⭐⭐⭐⭐
 
-★★★★★
+dbt ⭐⭐⭐⭐⭐
 
-Airflow
+Dremio ⭐⭐⭐⭐⭐
 
-★★★★★
+Scenario-Based Questions ⭐⭐⭐⭐⭐
 
-AWS
+Mock Interviews ⭐⭐⭐⭐⭐
 
-★★★★★
-
-Scenario Questions
-
-★★★★★
-
-Mock Interviews
-
-★★★★★
-
-Resume Review
-
-★★★★★
+Resume Review ⭐⭐⭐⭐⭐
 
 ---
 
-# GitHub Portfolio
+# 📂 GitHub Portfolio
 
-Repository 1
-
-DataEngineeringLab
-
-Repository 2
-
-SparkLab
-
-Repository 3
-
-AirflowLab
-
-Repository 4
-
-AWSDataEngineering
-
-Repository 5
-
-InterviewPreparation
+- DataEngineeringLab
+- PySparkLab
+- AirflowLab
+- AWSDataEngineering
+- InformaticaToPySpark
+- InterviewPreparation
 
 ---
 
-# Final Resume Skills
+# 🎯 Final Resume Skills
 
-Programming
+### Programming
 
 - Python
 - SQL
-- Linux
+- Bash
 
-Database
+### Database
 
 - PostgreSQL
-- Snowflake
+- Snowflake (Basics)
 
-Processing
+### Processing
 
-- PySpark
 - Pandas
+- PySpark
 
-Workflow
+### Data Integration
 
-- Airflow
+- Informatica
+- ETL
+- ELT
 
-Transformation
+### Analytics
+
+- Dremio
+- Amazon Athena
+
+### Workflow
+
+- Apache Airflow
+
+### Transformation
 
 - dbt
 
-Cloud
+### Cloud
 
-- AWS
-- GCP (Basics)
+- AWS S3
+- AWS Glue
+- AWS Athena
+- AWS EMR
+- AWS Redshift
 
-Containerization
-
-- Docker
-
-Version Control
-
-- Git
-
-Data Formats
-
-- CSV
-- JSON
-- Parquet
-- Avro
-
-Data Lake
+### Data Lakehouse
 
 - Delta Lake
-- Iceberg
+- Apache Iceberg
 
-Testing
+### Streaming
 
-- Pytest
+- Apache Kafka
 
-CI/CD
+### DevOps
 
+- Docker
+- Git
+- GitHub
 - GitHub Actions
 
----
+### Testing
 
-# Estimated Timeline
-
-Week 1-2
-
-Foundation
-
-Week 3
-
-SQL
-
-Week 4
-
-Python
-
-Week 5-6
-
-PySpark
-
-Week 7
-
-Data Lake
-
-Week 8
-
-Airflow
-
-Week 9
-
-dbt
-
-Week 10-12
-
-AWS
-
-Week 13+
-
-Interview Preparation
+- Pytest
+- Integration Testing
 
 ---
 
-# Mentor Rule
+# 👨‍🏫 Mentor Rule
 
 Every topic must include:
 
@@ -467,9 +549,10 @@ Every topic must include:
 2. Hands-on Lab
 3. Industry Best Practices
 4. GitHub Documentation
-5. Mini Project
+5. Production Project
 6. Interview Questions
 7. Resume Tips
 
-Nothing will be learned only for certification.
-Everything will be learned through projects.
+❌ Never learn a tool only for certification.
+
+✅ Learn every technology by building production-style projects that solve real-world data engineering problems.
