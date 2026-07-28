@@ -62,7 +62,7 @@ def load_data(df, batch_size=1000):
 
         # Batch processing
         for i in range(0, len(data), batch_size):
-            batch = data[i:i + batch_size]
+            batch = data[i : i + batch_size]
 
             cursor.executemany(upsert_query, batch)
 

@@ -28,12 +28,10 @@ def extract_csv(file_path: str) -> pd.DataFrame:
     try:
         df = pd.read_csv(file_path)
 
-        logger.info(
-            f"CSV loaded successfully. Records found: {len(df)}"
-        )
+        logger.info(f"CSV loaded successfully. Records found: {len(df)}")
 
         return df
 
-    except Exception as e:
+    except Exception:
         logger.exception(f"Failed to read CSV file: {file_path}")
         raise

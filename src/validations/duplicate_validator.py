@@ -36,13 +36,10 @@ def validate_duplicates(df: pd.DataFrame) -> None:
 
     if duplicate_summary:
         error_message = ", ".join(
-            f"{column}: {count}"
-            for column, count in duplicate_summary.items()
+            f"{column}: {count}" for column, count in duplicate_summary.items()
         )
 
         logger.error(f"Duplicate values found -> {error_message}")
-        raise ValueError(
-            f"Duplicate values found -> {error_message}"
-        )
+        raise ValueError(f"Duplicate values found -> {error_message}")
 
     logger.info("Duplicate validation passed.")

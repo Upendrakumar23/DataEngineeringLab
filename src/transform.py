@@ -30,9 +30,7 @@ def transform_data(df: pd.DataFrame) -> pd.DataFrame:
         transformed_df["name"] = transformed_df["name"].str.strip()
 
         # Convert department names to uppercase
-        transformed_df["department"] = (
-            transformed_df["department"].str.upper()
-        )
+        transformed_df["department"] = transformed_df["department"].str.upper()
 
         logger.info("Data transformation completed successfully.")
 

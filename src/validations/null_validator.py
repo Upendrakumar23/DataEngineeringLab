@@ -28,8 +28,7 @@ def validate_nulls(df: pd.DataFrame) -> None:
 
     if not invalid_columns.empty:
         error_message = ", ".join(
-            f"{column}: {count}"
-            for column, count in invalid_columns.items()
+            f"{column}: {count}" for column, count in invalid_columns.items()
         )
 
         logger.error(f"Null values found -> {error_message}")

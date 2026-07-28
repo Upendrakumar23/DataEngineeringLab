@@ -37,10 +37,7 @@ required_configs = {
     "POSTGRES_PASSWORD": DB_PASSWORD,
 }
 
-missing_configs = [
-    key for key, value in required_configs.items()
-    if not value
-]
+missing_configs = [key for key, value in required_configs.items() if not value]
 
 if missing_configs:
     raise ValueError(

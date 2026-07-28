@@ -4,7 +4,6 @@ Blank value validation module.
 
 import pandas as pd
 
-from src.config import REQUIRED_COLUMNS
 from src.logger import get_logger
 
 logger = get_logger()
@@ -33,21 +32,14 @@ def validate_blanks(df: pd.DataFrame) -> None:
     blank_summary = {}
 
     for column in text_columns:
-        blank_count = (
-            df[column]
-            .astype(str)
-            .str.strip()
-            .eq("")
-            .sum()
-        )
+        blank_count = df[column].astype(str).str.strip().eq("").sum()
 
         if blank_count > 0:
             blank_summary[column] = blank_count
 
     if blank_summary:
         error_message = ", ".join(
-            f"{column}: {count}"
-            for column, count in blank_summary.items()
+            f"{column}: {count}" for column, count in blank_summary.items()
         )
 
         logger.error(f"Blank values found -> {error_message}")

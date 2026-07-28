@@ -18,10 +18,7 @@ def test_duplicate_validator():
 
 def test_duplicate_validator_negative():
     """Test duplicate validator with data containing duplicates."""
-    df = extract_csv(
-        DATASET_DIR / "test" / "employees_duplicate.csv"
-    )
+    df = extract_csv(DATASET_DIR / "test" / "employees_duplicate.csv")
 
     with pytest.raises(ValueError):
         validate_duplicates(df)
-

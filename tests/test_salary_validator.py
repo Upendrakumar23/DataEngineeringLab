@@ -18,9 +18,7 @@ def test_salary_validator():
 
 def test_salary_validator_negative():
     """Test salary validator with invalid salary values."""
-    df = extract_csv(
-        DATASET_DIR / "test" / "employees_invalid_salary.csv"
-    )
+    df = extract_csv(DATASET_DIR / "test" / "employees_invalid_salary.csv")
 
     with pytest.raises(ValueError):
         validate_salary(df)

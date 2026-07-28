@@ -20,9 +20,7 @@ def get_logger():
 
     logger.setLevel(getattr(logging, LOG_LEVEL.upper(), logging.INFO))
 
-    formatter = logging.Formatter(
-        "%(asctime)s | %(levelname)-8s | %(message)s"
-    )
+    formatter = logging.Formatter("%(asctime)s | %(levelname)-8s | %(message)s")
 
     file_handler = logging.FileHandler(log_file)
     file_handler.setFormatter(formatter)

@@ -1,9 +1,10 @@
 """
 Integration tests for the complete ETL pipeline.
 """
+
+
 import pytest
 from psycopg import DatabaseError
-
 from src.config import DATASET_DIR
 from src.database import get_connection
 from src.extract import extract_csv
@@ -105,6 +106,7 @@ def test_incremental_loading():
     cursor.close()
     conn.close()
 
+
 def test_upsert_updates_existing_record():
     """
     Verify that UPSERT updates an existing employee instead of inserting
@@ -118,10 +120,7 @@ def test_upsert_updates_existing_record():
     df, _ = run_etl(file_path)
 
     # Change salary of EMP003
-    df.loc[
-        df["employee_code"] == "EMP003",
-        "salary"
-    ] = 90000
+    df.loc[df["employee_code"] == "EMP003", "salary"] = 90000
 
     # Run load again (UPSERT)
     load_data(df)
@@ -155,9 +154,6 @@ def test_upsert_updates_existing_record():
     cursor.close()
     conn.close()
 
-    import pytest
-from psycopg import DatabaseError
-
 
 def test_transaction_rollback():
     """
@@ -172,10 +168,7 @@ def test_transaction_rollback():
     df, _ = run_etl(file_path)
 
     # Introduce invalid data to trigger a database error
-    df.loc[
-        df["employee_code"] == "EMP003",
-        "salary"
-    ] = "INVALID"
+    df.loc[df["employee_code"] == "EMP003", "salary"] = "INVALID"
 
     with pytest.raises(DatabaseError):
         load_data(df)
@@ -193,4 +186,3 @@ def test_transaction_rollback():
 
     cursor.close()
     conn.close()
-

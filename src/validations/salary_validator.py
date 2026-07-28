@@ -40,12 +40,8 @@ def validate_salary(df: pd.DataFrame) -> None:
     if invalid_salary.any():
         count = invalid_salary.sum()
 
-        logger.error(
-            f"Invalid salary values found. Records: {count}"
-        )
+        logger.error(f"Invalid salary values found. Records: {count}")
 
-        raise ValueError(
-            f"Salary must be greater than zero. Invalid records: {count}"
-        )
+        raise ValueError(f"Salary must be greater than zero. Invalid records: {count}")
 
     logger.info("Salary validation passed.")
