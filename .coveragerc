@@ -3,6 +3,7 @@ source = src
 omit =
     tests/*
     venv/*
+    src/archive/*
 
 [report]
 show_missing = True
