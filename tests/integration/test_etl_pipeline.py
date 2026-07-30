@@ -4,6 +4,7 @@ Integration tests for the complete ETL pipeline.
 
 import pytest
 from psycopg import DatabaseError
+
 from src.config import DATASET_DIR
 from src.database import get_connection
 from src.extract import extract_csv
