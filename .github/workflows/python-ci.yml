@@ -15,6 +15,28 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: de_lab
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres -d de_lab"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    env:
+      DB_HOST: localhost
+      DB_PORT: 5432
+      DB_NAME: de_lab
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -28,7 +50,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install -r requirements-dev.txt
 
       - name: Run Black
         run: black --check .
@@ -39,8 +60,25 @@ jobs:
       - name: Run Flake8
         run: flake8 .
 
+      - name: Create Database Table
+        env:
+          PGPASSWORD: postgres
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+
+          psql -h localhost -U postgres -d de_lab <<EOF
+          CREATE TABLE IF NOT EXISTS employees (
+              employee_code VARCHAR(20) PRIMARY KEY,
+              name VARCHAR(100),
+              department VARCHAR(100),
+              salary NUMERIC
+          );
+          EOF
+
       - name: Run Tests
-        run: pytest --cov=src --cov-report=xml --cov-report=html
+        run: |
+          pytest --cov=src --cov-report=xml --cov-report=html
 
       - name: Upload Coverage Report
         uses: actions/upload-artifact@v4
