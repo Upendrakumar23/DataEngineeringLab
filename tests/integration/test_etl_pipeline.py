@@ -2,7 +2,6 @@
 Integration tests for the complete ETL pipeline.
 """
 
-
 import pytest
 from psycopg import DatabaseError
 from src.config import DATASET_DIR

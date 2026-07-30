@@ -69,13 +69,9 @@ def test_main_validation_failure(
     Verify that exceptions are logged and re-raised.
     """
 
-    mock_validate_file.side_effect = FileNotFoundError(
-        "employees.csv not found"
-    )
+    mock_validate_file.side_effect = FileNotFoundError("employees.csv not found")
 
     with pytest.raises(FileNotFoundError):
         main()
 
-    mock_logger.exception.assert_called_once_with(
-        "ETL Pipeline failed."
-    )
+    mock_logger.exception.assert_called_once_with("ETL Pipeline failed.")
