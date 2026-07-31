@@ -27,7 +27,9 @@
   - [Continuous Integration (CI/CD)](#continuous-integration-cicd)
 - [🛠 Technology Stack](#-technology-stack)
 - [🏗 Architecture](#-architecture)
-  - [ETL Workflow](#etl-workflow)
+  - [🏗 ETL Architecture](#-etl-architecture)
+  - [🔄 CI/CD Workflow](#-cicd-workflow)
+  - [📂 Project Structure](#-project-structure)
 - [📂 Repository Structure](#-repository-structure)
 - [🚀 Getting Started](#-getting-started)
 - [📋 Prerequisites](#-prerequisites)
@@ -207,28 +209,87 @@ The automated pipeline performs:
 
 # 🏗 Architecture
 
-## ETL Workflow
+## 🏗 ETL Architecture
 
-```text
-             CSV Dataset
-                  │
-                  ▼
-          Extract Data
-                  │
-                  ▼
-          Validate Data
-                  │
-                  ▼
-         Transform Data
-                  │
-                  ▼
- Incremental UPSERT Loader
-                  │
-                  ▼
-            PostgreSQL
+```mermaid
+flowchart LR
+
+A[employees.csv] --> B[Extract Data]
+
+B --> C[Validate Data]
+
+C --> D[Transform Data]
+
+D --> E[Incremental UPSERT]
+
+E --> F[(PostgreSQL)]
+
+subgraph Validation
+C1[File Validation]
+C2[Schema Validation]
+C3[Null Validation]
+C4[Duplicate Validation]
+C5[Salary Validation]
+end
+
+C --> C1
+C --> C2
+C --> C3
+C --> C4
+C --> C5
 ```
 
-> **Note:** This text-based diagram will be replaced with a Mermaid architecture diagram in the next documentation module.
+## 🔄 CI/CD Workflow
+
+```mermaid
+flowchart LR
+
+A[Git Push]
+
+A --> B[GitHub Actions]
+
+B --> C[Setup Python]
+
+C --> D[Install Dependencies]
+
+D --> E[Start PostgreSQL]
+
+E --> F[Black]
+
+F --> G[isort]
+
+G --> H[Flake8]
+
+H --> I[Unit Tests]
+
+I --> J[Integration Tests]
+
+J --> K[Coverage Report]
+
+K --> L[Success]
+```
+
+## 📂 Project Structure
+
+```mermaid
+graph TD
+
+A[DataEngineeringLab]
+
+A --> B[src]
+A --> C[tests]
+A --> D[datasets]
+A --> E[docs]
+A --> F[docker]
+A --> G[architecture]
+A --> H[logs]
+A --> I[.github]
+
+B --> B1[extract.py]
+B --> B2[transform.py]
+B --> B3[load_incremental.py]
+B --> B4[validations]
+```
 
 ---
 
