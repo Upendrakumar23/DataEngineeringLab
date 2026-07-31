@@ -1,6 +1,6 @@
 # 🚀 DataEngineeringLab
 
-> A production-ready Data Engineering project demonstrating modern ETL development using Python, PostgreSQL, Docker, automated testing, and GitHub Actions CI/CD.
+> **A production-ready Data Engineering project demonstrating modern ETL development using Python, PostgreSQL, Docker, automated testing, and GitHub Actions CI/CD.**
 
 ![Python](https://img.shields.io/badge/Python-3.8-blue)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-blue)
@@ -10,24 +10,105 @@
 
 ---
 
+# 📑 Table of Contents
+
+- [🚀 DataEngineeringLab](#-dataengineeringlab)
+- [📑 Table of Contents](#-table-of-contents)
+- [📖 About the Project](#-about-the-project)
+- [📊 Project Summary](#-project-summary)
+- [🎯 Project Objectives](#-project-objectives)
+- [✨ Features](#-features)
+  - [ETL Pipeline](#etl-pipeline)
+  - [Data Validation](#data-validation)
+  - [Testing](#testing)
+    - [Unit Testing](#unit-testing)
+    - [Integration Testing](#integration-testing)
+  - [Code Quality](#code-quality)
+  - [Continuous Integration (CI/CD)](#continuous-integration-cicd)
+- [🛠 Technology Stack](#-technology-stack)
+- [🏗 Architecture](#-architecture)
+  - [ETL Workflow](#etl-workflow)
+- [📂 Repository Structure](#-repository-structure)
+- [🚀 Getting Started](#-getting-started)
+- [📋 Prerequisites](#-prerequisites)
+- [⚡ Quick Start](#-quick-start)
+- [📥 Clone Repository](#-clone-repository)
+- [🐍 Create Python Virtual Environment](#-create-python-virtual-environment)
+  - [Linux / macOS](#linux--macos)
+  - [Windows](#windows)
+- [📦 Install Dependencies](#-install-dependencies)
+- [⚙️ Configure Environment Variables](#️-configure-environment-variables)
+- [🐳 Start PostgreSQL](#-start-postgresql)
+- [🗄 Database Initialization](#-database-initialization)
+- [▶️ Run the ETL Pipeline](#️-run-the-etl-pipeline)
+- [📂 Logs](#-logs)
+- [🧪 Running Tests](#-running-tests)
+- [🔄 Continuous Integration (CI/CD)](#-continuous-integration-cicd)
+- [📸 Screenshots](#-screenshots)
+  - [GitHub Actions](#github-actions)
+  - [ETL Pipeline Execution](#etl-pipeline-execution)
+  - [Code Coverage Report](#code-coverage-report)
+- [📈 Learning Progress](#-learning-progress)
+- [🗺 Roadmap](#-roadmap)
+  - [✅ Completed](#-completed)
+  - [🚧 Next Phase](#-next-phase)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
+- [👨‍💻 Author](#-author)
+- [⭐ Support](#-support)
+- [🙏 Acknowledgements](#-acknowledgements)
+  - [📬 Feedback](#-feedback)
+
+---
+
 # 📖 About the Project
 
-**DataEngineeringLab** is my hands-on learning repository for mastering modern Data Engineering concepts by building production-style ETL pipelines.
+**DataEngineeringLab** is my hands-on learning repository focused on mastering modern **Data Engineering** concepts by building production-ready ETL pipelines.
 
-The goal is not only to write ETL code, but also to follow software engineering best practices such as modular architecture, configuration management, logging, automated testing, transaction handling, code quality checks, and Continuous Integration (CI/CD).
+The project goes beyond writing ETL scripts by applying software engineering best practices, including:
 
-This repository documents my journey from Python fundamentals to building scalable data engineering solutions with technologies such as PySpark, Airflow, Kafka, dbt, and AWS.
+- Modular Architecture
+- Configuration Management
+- Data Validation
+- Structured Logging
+- Incremental Loading (UPSERT)
+- Transaction Management
+- Automated Testing
+- Code Quality
+- Continuous Integration (CI/CD)
+
+This repository documents my learning journey from Python-based ETL development toward advanced technologies including **PySpark**, **Apache Airflow**, **Kafka**, **dbt**, **AWS**, and modern Data Lakehouse architectures.
+
+---
+
+# 📊 Project Summary
+
+| Item             | Details                       |
+| ---------------- | ----------------------------- |
+| Project Name     | DataEngineeringLab            |
+| Project Type     | Production-style ETL Pipeline |
+| Language         | Python 3.8                    |
+| Database         | PostgreSQL 16                 |
+| Containerization | Docker                        |
+| Data Processing  | Pandas                        |
+| Testing          | Pytest                        |
+| CI/CD            | GitHub Actions                |
+| Architecture     | Modular ETL                   |
+| Current Status   | Production Ready              |
 
 ---
 
 # 🎯 Project Objectives
 
+The primary objectives of this repository are to:
+
 - Learn Data Engineering through practical projects
 - Build production-ready ETL pipelines
 - Write clean, maintainable, and testable code
 - Apply software engineering best practices
-- Automate quality checks with CI/CD
-- Continuously expand toward modern data platforms
+- Automate testing and deployments
+- Gain hands-on experience with modern Data Engineering tools
+- Build a professional portfolio for Data Engineering roles
 
 ---
 
@@ -86,14 +167,14 @@ This repository documents my journey from Python fundamentals to building scalab
 
 ---
 
-## CI/CD
+## Continuous Integration (CI/CD)
 
 Implemented using **GitHub Actions**
 
-Pipeline automatically performs:
+The automated pipeline performs:
 
 - Checkout Repository
-- Setup Python
+- Setup Python Environment
 - Install Dependencies
 - Start PostgreSQL
 - Create Database Schema
@@ -129,22 +210,27 @@ Pipeline automatically performs:
 ## ETL Workflow
 
 ```text
-CSV
- │
- ▼
-Extract
- │
- ▼
-Validation
- │
- ▼
-Transformation
- │
- ▼
-Incremental Loader
- │
- ▼
-PostgreSQL
+             CSV Dataset
+                  │
+                  ▼
+          Extract Data
+                  │
+                  ▼
+          Validate Data
+                  │
+                  ▼
+         Transform Data
+                  │
+                  ▼
+ Incremental UPSERT Loader
+                  │
+                  ▼
+            PostgreSQL
+```
+
+> **Note:** This text-based diagram will be replaced with a Mermaid architecture diagram in the next documentation module.
+
+---
 
 # 📂 Repository Structure
 
@@ -155,13 +241,14 @@ DataEngineeringLab/
 │   └── workflows/
 │       └── python-ci.yml
 │
-├── architecture/
-├── datasets/
-├── docker/
-├── docs/
-├── experiments/
-├── logs/
-├── scripts/
+├── architecture/          # Architecture diagrams
+├── datasets/              # Sample datasets
+├── docker/                # Docker configuration
+├── docs/                  # Documentation
+├── experiments/           # Learning experiments
+├── logs/                  # ETL execution logs
+├── scripts/               # Utility scripts
+│
 ├── src/
 │   ├── validations/
 │   ├── config.py
@@ -179,13 +266,22 @@ DataEngineeringLab/
 ├── .env.example
 ├── requirements.txt
 ├── README.md
-└── LICENSE
+├── LICENSE
+├── CONTRIBUTING.md
+└── CHANGELOG.md
 ```
+
+---
+
+# 🚀 Getting Started
+
+Follow the steps below to set up and run the project on your local machine.
+
 ---
 
 # 📋 Prerequisites
 
-Before running this project, ensure the following software is installed on your system.
+Ensure the following software is installed before running this project.
 
 | Software              | Version      |
 | --------------------- | ------------ |
@@ -196,13 +292,39 @@ Before running this project, ensure the following software is installed on your 
 | Git                   | Latest       |
 | VS Code (Recommended) | Latest       |
 
-Verify your installation:
+Verify the installation:
 
 ```bash
 python --version
 docker --version
 docker compose version
 git --version
+```
+
+---
+
+# ⚡ Quick Start
+
+Clone the repository and run the ETL pipeline.
+
+```bash
+git clone https://github.com/Upendrakumar23/DataEngineeringLab.git
+
+cd DataEngineeringLab
+
+python -m venv venv
+
+# Linux / macOS
+source venv/bin/activate
+
+# Windows
+venv\Scripts\activate
+
+pip install -r requirements.txt
+
+docker compose up -d
+
+python -m src.main
 ```
 
 ---
@@ -221,9 +343,7 @@ cd DataEngineeringLab
 
 # 🐍 Create Python Virtual Environment
 
-Create and activate a virtual environment.
-
-### Linux / macOS
+## Linux / macOS
 
 ```bash
 python3 -m venv venv
@@ -231,7 +351,7 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-### Windows
+## Windows
 
 ```powershell
 python -m venv venv
@@ -243,11 +363,15 @@ venv\Scripts\activate
 
 # 📦 Install Dependencies
 
-Install all required Python packages.
+Upgrade pip.
 
 ```bash
 pip install --upgrade pip
+```
 
+Install project dependencies.
+
+```bash
 pip install -r requirements.txt
 ```
 
@@ -280,9 +404,9 @@ LOG_DIR=logs
 
 ---
 
-# 🐳 Start PostgreSQL using Docker
+# 🐳 Start PostgreSQL
 
-Start the PostgreSQL container.
+Start PostgreSQL using Docker Compose.
 
 ```bash
 docker compose up -d
@@ -296,7 +420,7 @@ docker ps
 
 Expected output:
 
-```
+```text
 postgres-lab
 ```
 
@@ -304,15 +428,15 @@ postgres-lab
 
 # 🗄 Database Initialization
 
-If the database and table are not already created, initialize PostgreSQL.
+If the database has not already been initialized, create the `employees` table.
 
-Connect to PostgreSQL:
+Connect to PostgreSQL.
 
 ```bash
 docker exec -it postgres-lab psql -U postgres -d de_lab
 ```
 
-Create the employees table:
+Execute the following SQL.
 
 ```sql
 CREATE TABLE IF NOT EXISTS employees (
@@ -323,7 +447,7 @@ CREATE TABLE IF NOT EXISTS employees (
 );
 ```
 
-Exit PostgreSQL:
+Exit PostgreSQL.
 
 ```sql
 \q
@@ -333,13 +457,13 @@ Exit PostgreSQL:
 
 # ▶️ Run the ETL Pipeline
 
-Execute the ETL pipeline.
+Execute the pipeline.
 
 ```bash
 python -m src.main
 ```
 
-Expected workflow:
+ETL execution flow.
 
 ```text
 Validate Source File
@@ -364,7 +488,7 @@ PostgreSQL
 
 # 📂 Logs
 
-Execution logs are generated automatically.
+Execution logs are automatically generated.
 
 Location:
 
@@ -372,7 +496,7 @@ Location:
 logs/
 ```
 
-Example log output:
+Example output.
 
 ```text
 INFO  Starting ETL Pipeline
@@ -393,25 +517,25 @@ Run all tests.
 pytest
 ```
 
-Run only unit tests.
+Run unit tests.
 
 ```bash
 pytest tests/unit
 ```
 
-Run only integration tests.
+Run integration tests.
 
 ```bash
 pytest tests/integration
 ```
 
-Generate code coverage.
+Generate coverage report.
 
 ```bash
 pytest --cov=src --cov-report=html
 ```
 
-Coverage report:
+Coverage report location.
 
 ```text
 htmlcov/index.html
@@ -421,9 +545,9 @@ htmlcov/index.html
 
 # 🔄 Continuous Integration (CI/CD)
 
-This project uses **GitHub Actions** for Continuous Integration.
+This project uses **GitHub Actions** to automate code quality and testing.
 
-The pipeline automatically performs:
+The CI pipeline performs the following tasks automatically.
 
 - Checkout Repository
 - Setup Python Environment
@@ -438,7 +562,7 @@ The pipeline automatically performs:
 - Generate Code Coverage
 - Upload Coverage Reports
 
-Workflow file:
+Workflow location.
 
 ```text
 .github/workflows/python-ci.yml
@@ -448,9 +572,9 @@ Workflow file:
 
 # 📸 Screenshots
 
-### GitHub Actions
+## GitHub Actions
 
-> Add screenshot after first successful workflow.
+Add a screenshot after the first successful workflow execution.
 
 ```text
 docs/screenshots/github-actions-success.png
@@ -458,9 +582,9 @@ docs/screenshots/github-actions-success.png
 
 ---
 
-### ETL Execution
+## ETL Pipeline Execution
 
-> Add terminal execution screenshot.
+Add the terminal output screenshot.
 
 ```text
 docs/screenshots/etl-execution.png
@@ -468,128 +592,97 @@ docs/screenshots/etl-execution.png
 
 ---
 
-### Code Coverage
+## Code Coverage Report
 
-> Add HTML coverage report screenshot.
+Add the HTML coverage report screenshot.
 
 ```text
 docs/screenshots/coverage-report.png
 ```
----
-
-# 🛠 Tech Stack
-
-| Category         | Technologies          |
-| ---------------- | --------------------- |
-| Language         | Python                |
-| Database         | PostgreSQL            |
-| Containerization | Docker                |
-| Version Control  | Git & GitHub          |
-| Testing          | Pytest, unittest.mock |
-| Data Processing  | Pandas                |
-| Logging          | Python Logging        |
-| Environment      | WSL2 Ubuntu, VS Code  |
 
 ---
 
-# ✅ Features Implemented
+# 📈 Learning Progress
 
-## ETL Pipeline
+| Module                              | Status      |
+| ----------------------------------- | ----------- |
+| Engineering Workspace               | ✅ Completed |
+| Git & GitHub                        | ✅ Completed |
+| Linux Fundamentals                  | ✅ Completed |
+| Docker                              | ✅ Completed |
+| PostgreSQL                          | ✅ Completed |
+| Python ETL Development              | ✅ Completed |
+| Data Validation                     | ✅ Completed |
+| Logging                             | ✅ Completed |
+| Refactoring                         | ✅ Completed |
+| Unit Testing                        | ✅ Completed |
+| Integration Testing                 | ✅ Completed |
+| Code Quality (Black, isort, Flake8) | ✅ Completed |
+| GitHub Actions CI/CD                | ✅ Completed |
+| Apache Spark                        | ⏳ Planned   |
+| Apache Airflow                      | ⏳ Planned   |
+| Kafka                               | ⏳ Planned   |
+| dbt                                 | ⏳ Planned   |
+| AWS                                 | ⏳ Planned   |
+| Snowflake                           | ⏳ Planned   |
+| End-to-End Data Platform            | ⏳ Planned   |
 
-- CSV Extraction
+---
+
+# 🗺 Roadmap
+
+## ✅ Completed
+
+- Python ETL Pipeline
+- PostgreSQL Integration
+- Docker
 - Data Validation
-- Data Transformation
-- Incremental UPSERT Loading
-- Batch Loading
-- Transaction Management
-- Rollback Support
-- Execution Summary
 - Structured Logging
+- Incremental Loading (UPSERT)
+- Transaction Management
+- Unit Testing
+- Integration Testing
+- Code Quality
+- GitHub Actions CI/CD
 
 ---
 
-## Data Validation
+## 🚧 Next Phase
 
-- File Validation
-- Schema Validation
-- Null Validation
-- Blank Value Validation
-- Duplicate Validation
-- Salary Validation
-
----
-
-## Testing
-
-### Unit Testing
-
-- Extract Module
-- Transform Module
-- Validation Modules
-- Database Module
-- Logger Module
-- Incremental Loader
-
-### Integration Testing
-
-- Complete ETL Pipeline
-- Incremental Loading
-- UPSERT Verification
-- Transaction Rollback
-
----
-
-# 📈 Current Learning Progress
-
-| Module                   | Status      |
-| ------------------------ | ----------- |
-| Engineering Workspace    | ✅ Completed |
-| Git & GitHub             | ✅ Completed |
-| Linux Basics             | ✅ Completed |
-| Docker Fundamentals      | ✅ Completed |
-| PostgreSQL with Docker   | ✅ Completed |
-| Python ETL Development   | ✅ Completed |
-| Data Validation          | ✅ Completed |
-| Logging                  | ✅ Completed |
-| Refactoring              | ✅ Completed |
-| Unit Testing             | ✅ Completed |
-| Integration Testing      | ✅ Completed |
-| Code Quality             | ⏳ Planned   |
-| CI/CD (GitHub Actions)   | ⏳ Planned   |
-| Apache Spark             | ⏳ Planned   |
-| Airflow                  | ⏳ Planned   |
-| Kafka                    | ⏳ Planned   |
-| dbt                      | ⏳ Planned   |
-| AWS                      | ⏳ Planned   |
-| End-to-End Data Pipeline | ⏳ Planned   |
-
----
-
-# 📊 Project Highlights
-
-- Modular ETL Architecture
-- Configuration Management
-- Environment Variables (.env)
-- Production-style Logging
-- Incremental Data Loading (UPSERT)
-- Transaction Handling
-- Automated Testing
-- Clean Project Structure
-- Industry-standard Coding Practices
-
----
-
-# 🎯 Upcoming Learning
-
-- Code Quality (Black, Flake8, isort)
-- GitHub Actions (CI/CD)
-- Test Coverage Reports
 - Apache Spark
-- Airflow Orchestration
-- Kafka Streaming
-- dbt Transformations
-- AWS Data Engineering Services
-- End-to-End Data Engineering Pipeline
+- Apache Airflow
+- Kafka
+- dbt
+- MinIO
+- AWS S3
+- AWS Glue
+- Redshift
+- Snowflake
+- Data Lakehouse Architecture
+
+---
+
+# 🤝 Contributing
+
+Contributions are welcome.
+
+If you would like to improve this project:
+
+1. Fork the repository.
+2. Create a feature branch.
+3. Commit your changes.
+4. Push the branch.
+5. Open a Pull Request.
+
+Please read **CONTRIBUTING.md** before contributing.
+
+---
+
+# 📄 License
+
+This project is licensed under the **MIT License**.
+
+See the **LICENSE** file for details.
 
 ---
 
@@ -597,4 +690,46 @@ docs/screenshots/coverage-report.png
 
 **Upendra Kumar**
 
-Learning Data Engineering through practical, production-style projects.
+Data Engineer | Continuous Learner
+
+**GitHub**
+
+https://github.com/Upendrakumar23
+
+**Project Repository**
+
+https://github.com/Upendrakumar23/DataEngineeringLab
+
+---
+
+# ⭐ Support
+
+If you found this repository useful, please consider giving it a ⭐ on GitHub.
+
+Your support motivates me to continue building production-grade Data Engineering projects and sharing my learning journey.
+
+---
+
+# 🙏 Acknowledgements
+
+This repository represents my continuous learning journey toward becoming a professional Data Engineer.
+
+Every module is built incrementally using industry-standard software engineering practices with a strong focus on:
+
+- Clean Code
+- Modular Design
+- Automated Testing
+- CI/CD
+- Production Readiness
+- Maintainability
+- Continuous Learning
+
+---
+
+## 📬 Feedback
+
+Suggestions, improvements, and constructive feedback are always welcome.
+
+Feel free to open an issue or submit a pull request if you have ideas to improve this project.
+
+Happy Learning! 🚀
