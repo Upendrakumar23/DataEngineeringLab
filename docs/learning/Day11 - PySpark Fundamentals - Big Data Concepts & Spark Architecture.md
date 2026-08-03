@@ -100,7 +100,6 @@ Advantages:
 
 # 3. Spark Architecture
 
-```
 ```mermaid
 flowchart TD
 
@@ -187,7 +186,6 @@ Examples:
 
 # 4. Spark Execution Model
 
-```
 ```mermaid
 flowchart TD
 
@@ -345,7 +343,6 @@ df.show()
 
 One Job
 
----
 # Spark Job Breakdown
 
 ```mermaid
@@ -366,7 +363,6 @@ flowchart TD
     D --> D1["Task 4"]
     D --> D2["Task 5"]
     D --> D3["Task 6"]
-
 ```
 
 # 10. Stages
