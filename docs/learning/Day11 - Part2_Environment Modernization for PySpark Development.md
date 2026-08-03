@@ -395,43 +395,36 @@ E --> F["PySpark 4.0.1"]
 F --> G["Ready for Spark Development"]
 ```
 
+
 ## Complete Development Stack
 
 ```mermaid
-graph TD
+flowchart LR
 
-subgraph Operating_System
-Ubuntu["Ubuntu 20.04 LTS"]
+subgraph System
+    Ubuntu["Ubuntu 20.04 LTS"]
+    Java["Java 17"]
 end
 
-subgraph Language
-Pyenv["pyenv"]
-Python["Python 3.11.15"]
+subgraph Python
+    Pyenv["pyenv"]
+    Python311["Python 3.11.15"]
+    Venv["Virtual Environment"]
 end
 
-subgraph Environment
-Venv["Virtual Environment"]
+subgraph BigData
+    Spark["Apache Spark 4.0.1"]
+    PySpark["PySpark 4.0.1"]
 end
 
-subgraph Big_Data
-Spark["Apache Spark 4.0.1"]
-PySpark["PySpark 4.0.1"]
-end
-
-subgraph Project
 Project["DataEngineeringLab"]
-end
 
 Ubuntu --> Pyenv
-
-Pyenv --> Python
-
-Python --> Venv
-
-Venv --> PySpark
-
+Pyenv --> Python311
+Python311 --> Venv
+Java --> Spark
 Spark --> PySpark
-
+Venv --> PySpark
 PySpark --> Project
 ```
 
