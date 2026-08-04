@@ -42,11 +42,11 @@ G --> H[Waiting for Action]
 ```mermaid
 graph TD
 
-A[spark.read.csv()]
---> B[filter()]
---> C[select()]
---> D[withColumn()]
---> E[Logical Plan]
+A["spark.read.csv"]
+--> B["filter"]
+--> C["select"]
+--> D["withColumn"]
+--> E["Logical Plan"]
 
 style E fill:#FFD966
 ```
@@ -59,7 +59,7 @@ style E fill:#FFD966
 graph TD
 
 A[Logical Plan]
---> B[df.show()]
+--> B["Action : df.show"]
 --> C[Job Created]
 --> D[Stage Created]
 --> E[Tasks Created]
@@ -253,7 +253,7 @@ A[Python Application]
 --> D[Driver Process]
 --> E[Build Logical Plan]
 
-E --> F[df.show() Action]
+E --> F["Action : df.show"]
 
 F --> G[Job]
 
