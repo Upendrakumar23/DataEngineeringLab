@@ -70,29 +70,15 @@ flowchart TD
 
 A more precise mental model is:
 
-```text
-Transformation
-      |
-      v
-Lazy Execution Plan
-      |
-      v
-Action
-      |
-      v
-Job
-      |
-      v
-Stages
-      |
-      v
-Tasks
-      |
-      v
-Partitions
-      |
-      v
-Executor Cores
+```mermaid
+flowchart TD
+    A["Transformation"] --> B["Lazy Execution Plan"]
+    B --> C["Action"]
+    C --> D["Job"]
+    D --> E["Stage"]
+    E --> F["Tasks"]
+    F --> G["Partitions"]
+    G --> H["Executor Cores"]
 ```
 
 ---
@@ -121,22 +107,13 @@ filtered_df.show()
 
 Conceptually:
 
-```text
-filter()
-   |
-   | lazy
-   v
-Execution Plan
-   |
-   | show()
-   v
-Job
-   |
-   v
-Stage
-   |
-   v
-Tasks
+```mermaid
+flowchart TD
+    A["Transformation"] --> B["Lazy Execution Plan"]
+    B --> C["Action"]
+    C --> D["Job"]
+    D --> E["Stage"]
+    E --> F["Tasks"]
 ```
 
 ### Important
