@@ -1149,16 +1149,16 @@ When shuffle occurs:
 
 ```mermaid
 flowchart LR
-    A["PySpark Code"] --> B["Action"]
-    B --> C["Job"]
-    C --> D["Stage 0"]
-    D --> E["Tasks"]
-    E --> F["Shuffle Write"]
-    F --> G["Shuffle"]
-    G --> H["Shuffle Read"]
-    H --> I["Stage 1"]
-    I --> J["Tasks"]
-    J --> K["Executors"]
+    A[PySpark Code] --> B[Action]
+    B --> C[Job]
+    C --> D[Stage 0]
+    D --> E[Tasks]
+    E --> F[Shuffle Write]
+    F --> G[Shuffle]
+    G --> H[Shuffle Read]
+    H --> I[Stage 1]
+    I --> J[Tasks]
+    J --> K[Executors]
 ```
 
 When caching occurs:
