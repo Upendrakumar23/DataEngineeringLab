@@ -2,7 +2,7 @@ from pyspark.sql import SparkSession
 
 spark = (
     SparkSession.builder
-    .appName("Read Employee CSV")
+    .appName("Pure Cache Demo")
     .getOrCreate()
 )
 
@@ -14,10 +14,12 @@ df = (
 
 df = df.repartition(4)
 
-filtered_df = df.filter(df.salary > 90000)
+df.cache()
 
-result = filtered_df.count()
+print("Cache marked.")
 
-print("Matching records:", result)
+result = df.count()
 
-input("\nPress Enter to stop Spark...")
+print("Count:", result)
+
+input("\nPress Enter to stop...")

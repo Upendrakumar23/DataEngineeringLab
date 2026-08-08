@@ -12,12 +12,6 @@ df = (
     .csv("datasets/employees.csv")
 )
 
-df = df.repartition(4)
-
-filtered_df = df.filter(df.salary > 90000)
-
-result = filtered_df.count()
-
-print("Matching records:", result)
-
+df.filter(df.salary > 50000)
+df.printSchema()
 input("\nPress Enter to stop Spark...")
