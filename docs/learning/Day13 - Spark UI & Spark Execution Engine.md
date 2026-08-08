@@ -218,11 +218,10 @@ withColumn()
 
 Conceptually:
 
-```text
-Parent Partition
-       |
-       v
-Child Partition
+```mermaid
+flowchart LR
+    A["Parent Partition"] --> B["Transformation"]
+    B --> C["Child Partition"]
 ```
 
 The required data can be processed without a full redistribution across the cluster.
@@ -244,11 +243,17 @@ orderBy()
 
 Conceptually:
 
-```text
-Partition 0 ──┐
-Partition 1 ──┤
-Partition 2 ──┼──> Shuffle ──> New Partitions
-Partition 3 ──┘
+```mermaid
+flowchart TD
+    A["Partition 0"] --> E["Shuffle"]
+    B["Partition 1"] --> E
+    C["Partition 2"] --> E
+    D["Partition 3"] --> E
+
+    E --> F["New Partition 0"]
+    E --> G["New Partition 1"]
+    E --> H["New Partition 2"]
+    E --> I["New Partition 3"]
 ```
 
 Wide transformations are important for Spark performance because shuffle can involve significant data movement and I/O.
@@ -285,17 +290,18 @@ The number of rows is still:
 
 Therefore:
 
-```text
-12 rows
-   |
-   | repartition(4)
-   v
-Partition 0
-Partition 1
-Partition 2
-Partition 3
+```mermaid
+flowchart TD
+    A["12 Rows"] --> B["repartition(4)"]
+    B --> C["Partition 0"]
+    B --> D["Partition 1"]
+    B --> E["Partition 2"]
+    B --> F["Partition 3"]
 
-Total rows = 12
+    C --> G["Total Rows = 12"]
+    D --> G
+    E --> G
+    F --> G
 ```
 
 ### Important distinction
@@ -331,6 +337,13 @@ Therefore, if a stage needs to process 4 partitions:
      v
 4 Tasks
 ```
+```mermaid
+flowchart LR
+    A["Partition 0"] --> B["Task 0"]
+    C["Partition 1"] --> D["Task 1"]
+    E["Partition 2"] --> F["Task 2"]
+    G["Partition 3"] --> H["Task 3"]
+```
 
 The number of tasks represents the work that needs to be performed.
 
@@ -344,20 +357,15 @@ An Executor is a process responsible for executing Spark tasks and holding data 
 
 In a distributed environment:
 
-```text
-Driver
-   |
-   +---- Executor 1
-   |         |
-   |         +---- Tasks
-   |
-   +---- Executor 2
-   |         |
-   |         +---- Tasks
-   |
-   +---- Executor 3
-             |
-             +---- Tasks
+```mermaid
+flowchart TD
+    A["Driver"] --> B["Executor 1"]
+    A --> C["Executor 2"]
+    A --> D["Executor 3"]
+
+    B --> E["Tasks"]
+    C --> F["Tasks"]
+    D --> G["Tasks"]
 ```
 
 The Driver coordinates the application.
@@ -380,15 +388,14 @@ This happens because the Driver process also performs task execution in local mo
 
 Conceptually:
 
-```text
-Local Mode
+```mermaid
+flowchart TD
+    A["Driver Process"] --> B["Task 1"]
+    A --> C["Task 2"]
+    A --> D["Task 3"]
+    A --> E["Task 4"]
 
-Driver
-  |
-  +-- Task
-  +-- Task
-  +-- Task
-  +-- Task
+    F["Local Spark Mode"] --> A
 ```
 
 This is different from a distributed Spark cluster where the Driver and Executors are separate processes.
@@ -431,10 +438,32 @@ When a task finishes, its core becomes available for another waiting task.
 
 Therefore:
 
-```text
-Total Tasks      = 10
-Available Cores  = 4
-Concurrent Tasks = approximately 4
+```mermaid
+flowchart TD
+    A["10 Tasks"] --> B["4 Available Cores"]
+
+    B --> C["Task 1"]
+    B --> D["Task 2"]
+    B --> E["Task 3"]
+    B --> F["Task 4"]
+
+    B --> G["6 Tasks Waiting"]
+```
+A better conceptual representation:
+```mermaid
+flowchart LR
+    A["10 Tasks"] --> B["Executor"]
+    B --> C["Core 1"]
+    B --> D["Core 2"]
+    B --> E["Core 3"]
+    B --> F["Core 4"]
+
+    C --> G["Running"]
+    D --> H["Running"]
+    E --> I["Running"]
+    F --> J["Running"]
+
+    A --> K["Remaining Tasks Wait"]
 ```
 
 The total task count and concurrent task count are different concepts.
@@ -471,12 +500,21 @@ Concurrent Tasks  = approximately 8
 
 Conceptually:
 
-```text
-20 Tasks
-   |
-   +-- 8 running
-   |
-   +-- 12 waiting
+```mermaid
+flowchart TD
+    A["20 Tasks"] --> B["Executor 1"]
+    A --> C["Executor 2"]
+
+    B --> D["4 Cores"]
+    C --> E["4 Cores"]
+
+    D --> F["Up to 4 Concurrent Tasks"]
+    E --> G["Up to 4 Concurrent Tasks"]
+
+    F --> H["Approximately 8 Concurrent Tasks"]
+    G --> H
+
+    A --> I["Remaining Tasks Wait"]
 ```
 
 As tasks complete, waiting tasks are scheduled onto available cores.
@@ -499,20 +537,12 @@ df.repartition(4)
 
 Conceptually:
 
-```text
-Existing Partitions
-       |
-       v
-Shuffle Write
-       |
-       v
-Shuffle Data
-       |
-       v
-Shuffle Read
-       |
-       v
-New Partitions
+```mermaid
+flowchart LR
+    A["Stage 0"] --> B["Shuffle Write"]
+    B --> C["Shuffle Data"]
+    C --> D["Shuffle Read"]
+    D --> E["Stage 1"]
 ```
 
 Shuffle can involve:
@@ -592,17 +622,11 @@ in the execution plan.
 
 A useful relationship is:
 
-```text
-Exchange
-   |
-   v
-Data Redistribution
-   |
-   v
-Shuffle
-   |
-   v
-Stage Boundary
+```mermaid
+flowchart TD
+    A["Exchange"] --> B["Data Redistribution"]
+    B --> C["Shuffle"]
+    C --> D["Stage Boundary"]
 ```
 
 This becomes especially important when reading `df.explain()` in Day 14.
@@ -631,20 +655,13 @@ We observed a case involving reuse of already-produced shuffle output.
 
 Conceptually:
 
-```text
-Previous Execution
-       |
-       v
-Shuffle Output Available
-       |
-       v
-New Action
-       |
-       v
-Existing Data Reused
-       |
-       v
-Upstream Work May Be Skipped
+```mermaid
+flowchart TD
+    A["Previous Execution"] --> B["Shuffle Output Available"]
+    B --> C["New Action"]
+    C --> D["Existing Data Can Be Reused"]
+    D --> E["Upstream Work May Be Skipped"]
+    E --> F["Downstream Stage Executes"]
 ```
 
 Therefore:
@@ -722,14 +739,13 @@ Instead, it marks the DataFrame for caching.
 
 Conceptually:
 
-```text
-df.cache()
-     |
-     v
-Mark for caching
-     |
-     v
-No materialization yet
+```mermaid
+flowchart TD
+    A["df.cache()"] --> B["Mark for Caching"]
+    B --> C["No Materialization Yet"]
+    C --> D["Action"]
+    D --> E["Compute Partitions"]
+    E --> F["Store Partitions in Cache"]
 ```
 
 ---
@@ -748,23 +764,13 @@ result = df.count()
 
 Execution:
 
-```text
-df.cache()
-     |
-     v
-Mark for caching
-     |
-     v
-df.count()
-     |
-     v
-Action
-     |
-     v
-Compute partitions
-     |
-     v
-Store partitions in cache
+```mermaid
+flowchart TD
+    A["df.cache()"] --> B["First Action"]
+    B --> C["Compute Data"]
+    C --> D["Cache Partitions"]
+    D --> E["Second Action"]
+    E --> F["Reuse Cached Data"]
 ```
 
 We verified this experimentally.
@@ -800,13 +806,17 @@ The Storage UI showed cached blocks corresponding to the partitions.
 
 Conceptually:
 
-```text
-DataFrame
-   |
-   +-- Partition 0 --> Cache
-   +-- Partition 1 --> Cache
-   +-- Partition 2 --> Cache
-   +-- Partition 3 --> Cache
+```mermaid
+flowchart TD
+    A["DataFrame"] --> B["Partition 0"]
+    A --> C["Partition 1"]
+    A --> D["Partition 2"]
+    A --> E["Partition 3"]
+
+    B --> F["Cache"]
+    C --> G["Cache"]
+    D --> H["Cache"]
+    E --> I["Cache"]
 ```
 
 Therefore:
@@ -856,14 +866,13 @@ Retain computed data for reuse
 
 Conceptually:
 
-```text
-Computed Partition
-       |
-       v
-      Cache
-       |
-       v
-Reuse later
+```mermaid
+flowchart LR
+    A["Data"] --> B["Shuffle"]
+    B --> C["Redistributed Data"]
+
+    A --> D["Cache"]
+    D --> E["Reusable Computed Data"]
 ```
 
 Therefore:
@@ -979,32 +988,16 @@ An action triggers execution.
 
 Conceptually:
 
-```text
-Read CSV
-   |
-   v
-filter()
-   |
-   v
-withColumn()
-   |
-   v
-select()
-   |
-   v
-Lazy Execution Plan
-   |
-   v
-Action
-   |
-   v
-Job
-   |
-   v
-Stages
-   |
-   v
-Tasks
+```mermaid
+flowchart TD
+    A["Read CSV"] --> B["filter()"]
+    B --> C["withColumn()"]
+    C --> D["select()"]
+    D --> E["Lazy Execution Plan"]
+    E --> F["Action"]
+    F --> G["Job"]
+    G --> H["Stages"]
+    H --> I["Tasks"]
 ```
 
 Lazy evaluation allows Spark to optimize the complete computation before execution.
@@ -1087,6 +1080,15 @@ Displays the execution plan.
 
 `explain()` becomes a major focus of Day 14.
 
+DataFrame API Execution
+
+```mermaid
+flowchart TD
+    A["DataFrame"] --> B["filter()"]
+    B --> C["select()"]
+    C --> D["show()"]
+    D --> E["Spark Execution"]
+```
 ---
 
 ## 28. Important Observation: `show()` vs `count()`
@@ -1123,95 +1125,84 @@ Therefore:
 
 The most important connection from Day 13 is:
 
-```text
-PySpark Code
-      |
-      v
-Action
-      |
-      v
-Job
-      |
-      v
-Stages
-      |
-      v
-Tasks
-      |
-      v
-Partitions
-      |
-      v
-Executor Cores
+```mermaid
+flowchart TD
+    A["PySpark Application"] --> B["Driver"]
+    B --> C["Execution Plan"]
+    C --> D["Action"]
+    D --> E["Job"]
+
+    E --> F["Stage 0"]
+    E --> G["Stage 1"]
+
+    F --> H["Tasks"]
+    G --> I["Tasks"]
+
+    H --> J["Executors"]
+    I --> J
+
+    J --> K["Executor Cores"]
+    K --> L["Process Partitions"]
 ```
 
 When shuffle occurs:
 
-```text
-Stage
-  |
-  v
-Shuffle Write
-  |
-  v
-Shuffle
-  |
-  v
-Shuffle Read
-  |
-  v
-Next Stage
+```mermaid
+flowchart LR
+    A["PySpark Code"] --> B["Action"]
+    B --> C["Job"]
+    C --> D["Stage 0"]
+    D --> E["Tasks"]
+    E --> F["Shuffle Write"]
+    F --> G["Shuffle"]
+    G --> H["Shuffle Read"]
+    H --> I["Stage 1"]
+    I --> J["Tasks"]
+    J --> K["Executors"]
 ```
 
 When caching occurs:
 
-```text
-Compute
-  |
-  v
-Cache
-  |
-  v
-Reuse
+```mermaid
+flowchart TD
+    A["DataFrame"] --> B["Transformation"]
+    B --> C["Action"]
+    C --> D["Compute"]
+    D --> E["Cache Partitions"]
+    E --> F["Later Action"]
+    F --> G["Reuse Cached Data"]
 ```
 
 ---
 
 ## 30. Complete Spark Execution Model
 
-```text
-PySpark Application
-        |
-        v
-      Driver
-        |
-        v
- Execution Plan
-        |
-        v
-      Action
-        |
-        v
-       Job
-        |
-        +----------------+
-        |                |
-        v                v
-     Stage 0          Stage 1
-        |                |
-        v                v
-      Tasks            Tasks
-        |                |
-        +--------+-------+
-                 |
-                 v
-             Executors
-                 |
-                 v
-          Executor Cores
-                 |
-                 v
-        Process Partitions
+```mermaid
+flowchart TD
+    A["PySpark Code"] --> B["Transformation"]
+    B --> C["Lazy Execution Plan"]
+    C --> D["Action"]
+    D --> E["Job"]
+
+    E --> F["Stage"]
+
+    F --> G["Tasks"]
+    G --> H["Partitions"]
+
+    H --> I["Executors"]
+    I --> J["Executor Cores"]
+
+    F --> K["Shuffle"]
+    K --> L["Next Stage"]
+
+    M["cache()"] --> N["Mark for Caching"]
+    N --> O["Action"]
+    O --> P["Cache Partitions"]
+    P --> Q["Reuse"]
+
+    J --> R["Spark Execution"]
+    L --> R
+    Q --> R
 ```
 
 With shuffle:
