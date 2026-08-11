@@ -1,16 +1,11 @@
 from pyspark.sql import SparkSession
 
 
-spark = (
-    SparkSession.builder
-    .appName("Day13_SparkUI_Execution")
-    .getOrCreate()
-)
+spark = SparkSession.builder.appName("Day13_SparkUI_Execution").getOrCreate()
 
 
 df = (
-    spark.read
-    .option("header", True)
+    spark.read.option("header", True)
     .option("inferSchema", True)
     .csv("datasets/employees.csv")
 )
