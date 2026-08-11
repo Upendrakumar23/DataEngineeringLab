@@ -1,6 +1,5 @@
 from pyspark.sql import SparkSession
 
-
 spark = SparkSession.builder.appName("Day13_SparkUI_Execution").getOrCreate()
 
 
