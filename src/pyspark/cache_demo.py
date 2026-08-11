@@ -1,16 +1,8 @@
 from pyspark.sql import SparkSession
 
-spark = (
-    SparkSession.builder
-    .appName("Pure Cache Demo")
-    .getOrCreate()
-)
+spark = SparkSession.builder.appName("Pure Cache Demo").getOrCreate()
 
-df = (
-    spark.read
-    .option("header", True)
-    .csv("datasets/employees.csv")
-)
+df = spark.read.option("header", True).csv("datasets/employees.csv")
 
 df = df.repartition(4)
 
