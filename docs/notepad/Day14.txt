@@ -1,0 +1,134 @@
+(venv) upen@UPENDRA:/mnt/d/Projects/DataEngineeringLab$ python ./src/pyspark/Day14_ExplainPlans.py
+
+df.printSchema()
+root
+ |-- employee_code: string (nullable = true)
+ |-- name: string (nullable = true)
+ |-- department: string (nullable = true)
+ |-- salary: integer (nullable = true)
+===============================================
+df.explain()
+== Physical Plan ==
+FileScan csv [employee_code#17,name#18,department#19,salary#20] Batched: false, DataFilters: [], Format: CSV, Location: InMemoryFileIndex(1 paths)[file:/mnt/d/Projects/DataEngineeringLab/datasets/employees.csv], PartitionFilters: [], PushedFilters: [], ReadSchema: struct<employee_code:string,name:string,department:string,salary:int>
+================================================
+df.explain(True)
+== Parsed Logical Plan ==
+UnresolvedDataSource format: csv, isStreaming: false, paths: 1 provided
+
+== Analyzed Logical Plan ==
+employee_code: string, name: string, department: string, salary: int
+Relation [employee_code#17,name#18,department#19,salary#20] csv
+
+== Optimized Logical Plan ==
+Relation [employee_code#17,name#18,department#19,salary#20] csv
+
+== Physical Plan ==
+FileScan csv [employee_code#17,name#18,department#19,salary#20] Batched: false, DataFilters: [], Format: CSV, Location: InMemoryFileIndex(1 paths)[file:/mnt/d/Projects/DataEngineeringLab/datasets/employees.csv], PartitionFilters: [], PushedFilters: [], ReadSchema: struct<employee_code:string,name:string,department:string,salary:int>
+====================================================
+filtered_df = df.filter(df.salary > 50000)
+filtered_df.explain(True)
+== Parsed Logical Plan ==
+'Filter '`>`(salary#20, 50000)
++- Relation [employee_code#17,name#18,department#19,salary#20] csv
+
+== Analyzed Logical Plan ==
+employee_code: string, name: string, department: string, salary: int
+Filter (salary#20 > 50000)
++- Relation [employee_code#17,name#18,department#19,salary#20] csv
+
+== Optimized Logical Plan ==
+Filter (isnotnull(salary#20) AND (salary#20 > 50000))
++- Relation [employee_code#17,name#18,department#19,salary#20] csv
+
+== Physical Plan ==
+*(1) Filter (isnotnull(salary#20) AND (salary#20 > 50000))
++- FileScan csv [employee_code#17,name#18,department#19,salary#20] Batched: false, DataFilters: [isnotnull(salary#20), (salary#20 > 50000)], Format: CSV, Location: InMemoryFileIndex(1 paths)[file:/mnt/d/Projects/DataEngineeringLab/datasets/employees.csv], PartitionFilters: [], PushedFilters: [IsNotNull(salary), GreaterThan(salary,50000)], ReadSchema: struct<employee_code:string,name:string,department:string,salary:int>
+============================================================
+selected_df = df.select("name", "salary")
+selected_df.explain(True)
+== Parsed Logical Plan ==
+'Project ['name, 'salary]
++- Relation [employee_code#17,name#18,department#19,salary#20] csv
+
+== Analyzed Logical Plan ==
+name: string, salary: int
+Project [name#18, salary#20]
++- Relation [employee_code#17,name#18,department#19,salary#20] csv
+
+== Optimized Logical Plan ==
+Project [name#18, salary#20]
++- Relation [employee_code#17,name#18,department#19,salary#20] csv
+
+== Physical Plan ==
+FileScan csv [name#18,salary#20] Batched: false, DataFilters: [], Format: CSV, Location: InMemoryFileIndex(1 paths)[file:/mnt/d/Projects/DataEngineeringLab/datasets/employees.csv], PartitionFilters: [], PushedFilters: [], ReadSchema: struct<name:string,salary:int>
+================================================================
+result_df = (
+    df
+    .filter(df.salary > 50000)
+    .select("name", "salary")
+)
+
+result_df.explain(True)
+== Parsed Logical Plan ==
+'Project ['name, 'salary]
++- Filter (salary#20 > 50000)
+   +- Relation [employee_code#17,name#18,department#19,salary#20] csv
+
+== Analyzed Logical Plan ==
+name: string, salary: int
+Project [name#18, salary#20]
++- Filter (salary#20 > 50000)
+   +- Relation [employee_code#17,name#18,department#19,salary#20] csv
+
+== Optimized Logical Plan ==
+Project [name#18, salary#20]
++- Filter (isnotnull(salary#20) AND (salary#20 > 50000))
+   +- Relation [employee_code#17,name#18,department#19,salary#20] csv
+
+== Physical Plan ==
+*(1) Filter (isnotnull(salary#20) AND (salary#20 > 50000))
++- FileScan csv [name#18,salary#20] Batched: false, DataFilters: [isnotnull(salary#20), (salary#20 > 50000)], Format: CSV, Location: InMemoryFileIndex(1 paths)[file:/mnt/d/Projects/DataEngineeringLab/datasets/employees.csv], PartitionFilters: [], PushedFilters: [IsNotNull(salary), GreaterThan(salary,50000)], ReadSchema: struct<name:string,salary:int>
+==================================================================
+df.repartition(4).explain(True)
+== Parsed Logical Plan ==
+Repartition 4, true
++- Relation [employee_code#17,name#18,department#19,salary#20] csv
+
+== Analyzed Logical Plan ==
+employee_code: string, name: string, department: string, salary: int
+Repartition 4, true
++- Relation [employee_code#17,name#18,department#19,salary#20] csv
+
+== Optimized Logical Plan ==
+Repartition 4, true
++- Relation [employee_code#17,name#18,department#19,salary#20] csv
+
+== Physical Plan ==
+AdaptiveSparkPlan isFinalPlan=false
++- Exchange RoundRobinPartitioning(4), REPARTITION_BY_NUM, [plan_id=25]
+   +- FileScan csv [employee_code#17,name#18,department#19,salary#20] Batched: false, DataFilters: [], Format: CSV, Location: InMemoryFileIndex(1 paths)[file:/mnt/d/Projects/DataEngineeringLab/datasets/employees.csv], PartitionFilters: [], PushedFilters: [], ReadSchema: struct<employee_code:string,name:string,department:string,salary:int>
+=====================================================================
+grouped_df = df.groupBy("department").count()
+grouped_df.explain(True)
+== Parsed Logical Plan ==
+'Aggregate ['department], ['department, 'count(1) AS count#21]
++- Relation [employee_code#17,name#18,department#19,salary#20] csv
+
+== Analyzed Logical Plan ==
+department: string, count: bigint
+Aggregate [department#19], [department#19, count(1) AS count#21L]
++- Relation [employee_code#17,name#18,department#19,salary#20] csv
+
+== Optimized Logical Plan ==
+Aggregate [department#19], [department#19, count(1) AS count#21L]
++- Project [department#19]
+   +- Relation [employee_code#17,name#18,department#19,salary#20] csv
+
+== Physical Plan ==
+AdaptiveSparkPlan isFinalPlan=false
++- HashAggregate(keys=[department#19], functions=[count(1)], output=[department#19, count#21L])
+   +- Exchange hashpartitioning(department#19, 200), ENSURE_REQUIREMENTS, [plan_id=30]
+      +- HashAggregate(keys=[department#19], functions=[partial_count(1)], output=[department#19, count#29L])
+         +- FileScan csv [department#19] Batched: false, DataFilters: [], Format: CSV, Location: InMemoryFileIndex(1 paths)[file:/mnt/d/Projects/DataEngineeringLab/datasets/employees.csv], PartitionFilters: [], PushedFilters: [], ReadSchema: struct<department:string>
+==============================================================================================================	 
+   
