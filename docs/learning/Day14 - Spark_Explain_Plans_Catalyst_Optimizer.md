@@ -664,7 +664,7 @@ The purpose is approximately even distribution across the requested partitions.
 
 This was the main practical connection between Day 13 and Day 14.
 
-```Mermaid
+```mermaid
 flowchart TD
     A["PySpark Operation"] --> B["Physical Plan"]
     B --> C["Exchange"]
@@ -851,7 +851,7 @@ By the stopping point of Day 14, we covered:
 
 # Day 14 - Key Mental Model
 
-```Mermaid
+```mermaid
 flowchart TD
     A["PySpark DataFrame Code"] --> B["Parsed Logical Plan"]
     B --> C["Analyzed Logical Plan"]
