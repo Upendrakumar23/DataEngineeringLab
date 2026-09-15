@@ -1,24 +1,16 @@
 from pyspark.sql import SparkSession
 
-spark = (
-    SparkSession.builder
-    .appName("Day15_Part11_PerformanceIntegration")
-    .getOrCreate()
-)
+spark = SparkSession.builder.appName(
+    "Day15_Part11_PerformanceIntegration"
+).getOrCreate()
 
 # --------------------------------------------------
 # Spark configuration
 # --------------------------------------------------
 
-print(
-    "AQE enabled:",
-    spark.conf.get("spark.sql.adaptive.enabled")
-)
+print("AQE enabled:", spark.conf.get("spark.sql.adaptive.enabled"))
 
-print(
-    "Shuffle partitions:",
-    spark.conf.get("spark.sql.shuffle.partitions")
-)
+print("Shuffle partitions:", spark.conf.get("spark.sql.shuffle.partitions"))
 
 
 # --------------------------------------------------
@@ -26,36 +18,26 @@ print(
 # --------------------------------------------------
 
 df = (
-    spark.read
-    .option("header", True)
+    spark.read.option("header", True)
     .option("inferSchema", True)
     .csv("datasets/employees.csv")
 )
 
-print(
-    "Input partitions:",
-    df.rdd.getNumPartitions()
-)
+print("Input partitions:", df.rdd.getNumPartitions())
 
 
 # --------------------------------------------------
 # Filter
 # --------------------------------------------------
 
-filtered_df = df.filter(
-    df.salary > 50000
-)
+filtered_df = df.filter(df.salary > 50000)
 
 
 # --------------------------------------------------
 # Aggregation
 # --------------------------------------------------
 
-result = (
-    filtered_df
-    .groupBy("department")
-    .count()
-)
+result = filtered_df.groupBy("department").count()
 
 
 # --------------------------------------------------
@@ -81,8 +63,7 @@ result.show()
 # --------------------------------------------------
 
 input(
-    "\nOpen http://localhost:4040 to inspect Spark UI. "
-    "Press Enter to stop Spark..."
+    "\nOpen http://localhost:4040 to inspect Spark UI. " "Press Enter to stop Spark..."
 )
 
 spark.stop()

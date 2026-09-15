@@ -1,14 +1,9 @@
 from pyspark.sql import SparkSession
 
-spark = (
-    SparkSession.builder
-    .appName("Day15_Part8_WholeStageCodegen")
-    .getOrCreate()
-)
+spark = SparkSession.builder.appName("Day15_Part8_WholeStageCodegen").getOrCreate()
 
 df = (
-    spark.read
-    .option("header", True)
+    spark.read.option("header", True)
     .option("inferSchema", True)
     .csv("datasets/employees.csv")
 )
@@ -20,8 +15,7 @@ df = (
 # )
 
 result = (
-    df
-    .filter(df.salary > 50000)
+    df.filter(df.salary > 50000)
     .select("name", "department", "salary")
     .groupBy("department")
     .count()

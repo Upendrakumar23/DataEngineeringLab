@@ -1,14 +1,9 @@
 from pyspark.sql import SparkSession
 
-spark = (
-    SparkSession.builder
-    .appName("Day15_Part7_RepartitionCoalesce")
-    .getOrCreate()
-)
+spark = SparkSession.builder.appName("Day15_Part7_RepartitionCoalesce").getOrCreate()
 
 df = (
-    spark.read
-    .option("header", True)
+    spark.read.option("header", True)
     .option("inferSchema", True)
     .csv("datasets/employees.csv")
 )
@@ -23,10 +18,7 @@ print("Original partitions:", df.rdd.getNumPartitions())
 
 repartitioned_df = df.repartition(4)
 
-print(
-    "After repartition:",
-    repartitioned_df.rdd.getNumPartitions()
-)
+print("After repartition:", repartitioned_df.rdd.getNumPartitions())
 
 repartitioned_df.explain()
 
@@ -37,10 +29,7 @@ repartitioned_df.explain()
 
 coalesced_df = repartitioned_df.coalesce(2)
 
-print(
-    "After coalesce:",
-    coalesced_df.rdd.getNumPartitions()
-)
+print("After coalesce:", coalesced_df.rdd.getNumPartitions())
 
 coalesced_df.explain()
 
@@ -51,10 +40,7 @@ coalesced_df.explain()
 
 department_df = df.repartition(4, "department")
 
-print(
-    "After repartition by department:",
-    department_df.rdd.getNumPartitions()
-)
+print("After repartition by department:", department_df.rdd.getNumPartitions())
 
 department_df.explain()
 
